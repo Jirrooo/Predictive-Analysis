@@ -1,12 +1,12 @@
-# Laporan Proyek Predictive Analytics: Prediksi Harga Properti dengan Regresi Linier dan Random Forest
+# Laporan Proyek Predictive Analytics: Prediksi Harga Properti dengan Regresi Linier
 
 ## Domain Proyek
 
 Proyek ini berfokus pada prediksi harga jual properti, sebuah domain yang sangat relevan dan dinamis dalam industri real estat. Harga properti dipengaruhi oleh berbagai faktor, mulai dari karakteristik fisik properti hingga kondisi pasar dan lokasi geografis. Kemampuan untuk memprediksi harga properti secara akurat menjadi krusial bagi berbagai pihak, termasuk pembeli yang ingin membuat keputusan investasi yang cerdas, penjual yang ingin menetapkan harga kompetitif, agen real estat yang perlu memberikan saran informatif, dan investor yang mencari peluang profit.
 
-Masalah utama dalam prediksi harga properti adalah banyaknya variabel yang saling terkait dan tidak selalu linier, serta adanya outlier dan distribusi data yang tidak normal. Tanpa model prediktif yang baik, penetapan harga seringkali bersifat subjektif dan berisiko tinggi. Oleh karena itu, proyek ini bertujuan untuk mengembangkan model regresi yang mampu mengestimasi harga properti dengan akurasi tinggi berdasarkan fitur-fitur yang tersedia, dengan fokus pada **model Regresi Linier** dan **Random Forest**.
+Masalah utama dalam prediksi harga properti adalah banyaknya variabel yang saling terkait dan tidak selalu linier, serta adanya outlier dan distribusi data yang tidak normal. Tanpa model prediktif yang baik, penetapan harga seringkali bersifat subjektif dan berisiko tinggi. Oleh karena itu, proyek ini bertujuan untuk mengembangkan model regresi linier yang mampu mengestimasi harga properti dengan akurasi tinggi berdasarkan fitur-fitur yang tersedia.
 
-Penyelesaian masalah ini akan memberikan dasar yang kuat untuk pengambilan keputusan yang lebih terinformasi dan strategis di pasar properti. Dengan memanfaatkan teknik analisis data dan *machine learning*, kita dapat mengubah data mentah menjadi wawasan yang dapat ditindaklanjuti, mengurangi ketidakpastian, dan meningkatkan efisiensi transaksi properti.
+Penyelesaian masalah ini akan memberikan dasar yang kuat untuk pengambilan keputusan yang lebih terinformasi dan strategis di pasar properti. Dengan memanfaatkan teknik analisis data dan machine learning, kita dapat mengubah data mentah menjadi wawasan yang dapat ditindaklanjuti, mengurangi ketidakpastian, dan meningkatkan efisiensi transaksi properti.
 
 Referensi terkait:
 - Glaeser, Edward, L., Joseph Gyourko, and Raven E. Saks. 2005. "Why Have Housing Prices Gone Up?" American Economic Review 95 (2): 329–333.
@@ -14,19 +14,17 @@ Referensi terkait:
 ## Business Understanding
 
 ### Problem Statements
-1.  Bagaimana kita dapat secara akurat memprediksi harga jual properti di suatu lokasi tertentu berdasarkan fitur-fitur properti yang tersedia?
-2.  Model regresi apa yang paling efektif dalam menangani kompleksitas data properti (misalnya, outlier, fitur non-linier) untuk menghasilkan prediksi harga yang robust dan akurat?
-3.  Bagaimana kita dapat mengidentifikasi faktor-faktor kunci yang paling memengaruhi harga properti?
+1. Bagaimana kita dapat secara akurat memprediksi harga jual properti di suatu lokasi tertentu berdasarkan fitur-fitur properti yang tersedia?
+2. Model regresi apa yang paling efektif dalam menangani kompleksitas data properti (misalnya, outlier, fitur non-linier) untuk menghasilkan prediksi harga yang robust dan akurat?
+3. Bagaimana kita dapat mengidentifikasi faktor-faktor kunci yang paling memengaruhi harga properti?
 
 ### Goals
 1.  Membangun model regresi yang dapat memprediksi harga properti dengan tingkat akurasi yang tinggi, diukur dengan metrik seperti R2 Score, MAE, MSE, dan RMSE.
-2.  Membandingkan kinerja antara model Regresi Linier dan Random Forest untuk menentukan model mana yang memberikan hasil prediksi terbaik.
-3.  Mengidentifikasi fitur-fitur properti yang memiliki pengaruh paling signifikan terhadap harga jual.
+2. Mengidentifikasi fitur-fitur properti yang memiliki pengaruh paling signifikan terhadap harga jual.
 
 ### Solution Statements
-1.  **Pengembangan Model Ganda dan Perbandingan Kinerja:** Kami akan mengembangkan dua model regresi yang berbeda: **Regresi Linier** sebagai model baseline karena kesederhanaan dan interpretasinya, dan **Random Forest Regressor** yang dikenal lebih robust terhadap outlier dan mampu menangani hubungan non-linier. Kinerja kedua model akan dievaluasi secara komprehensif menggunakan metrik MAE, MSE, RMSE, dan R2 Score pada data uji, kemudian model dengan metrik terbaik akan dipilih sebagai solusi optimal.
-2.  **Penanganan Outlier dan Transformasi Data:** Sebelum pemodelan, kami akan melakukan deteksi dan penghapusan outlier menggunakan metode Interquartile Range (IQR) pada fitur-fitur numerik kunci. Selain itu, variabel target `price` akan ditransformasi logaritmik ($np.log1p$) untuk mengatasi distribusi yang miring dan membuat data lebih sesuai dengan asumsi model regresi linier. Untuk Random Forest, transformasi ini juga dapat membantu, meskipun tidak sekritis untuk model berbasis pohon.
-3.  **Rekayasa Fitur Tambahan:** Untuk meningkatkan kinerja model, kami akan menciptakan fitur baru seperti `age_of_property` (usia properti) dari `yr_built` dan `since_renovated` (waktu sejak renovasi) dari `yr_renovated`. Fitur-fitur ini diharapkan dapat menangkap informasi yang lebih relevan tentang nilai properti seiring waktu.
+1. **Pengembangan Model Regresi Linier**: Kami akan mengembangkan Regresi Linier sebagai model utama karena kesederhanaan dan interpretasinya yang baik. Kinerja model akan dievaluasi secara komprehensif menggunakan metrik MAE, MSE, RMSE, dan R2 Score pada data uji.
+2. **Penanganan Outlier dan Transformasi Dat**a: Sebelum pemodelan, kami akan melakukan deteksi dan penghapusan outlier menggunakan metode Interquartile Range (IQR) pada fitur-fitur numerik kunci. Selain itu, variabel target price akan ditransformasi logaritmik (`np.log1p`) untuk mengatasi distribusi yang miring dan membuat data lebih sesuai dengan asumsi model regresi linier.
 
 ## Data Understanding
 
@@ -35,6 +33,7 @@ Dataset yang digunakan dalam proyek ini adalah "USA House Prices".
 (https://www.kaggle.com/datasets/fratzcan/usa-house-prices/data)
 
 ### Deskripsi Data
+Dataset ini memiliki 4.140 baris dan 18 kolom
 * `Date`: Tanggal properti terjual. Fitur ini membantu dalam memahami tren temporal harga properti.
 * `Price`: Harga jual properti dalam USD. Ini adalah variabel target yang ingin kita prediksi.
 * `Bedrooms`: Jumlah kamar tidur di properti. Umumnya, properti dengan lebih banyak kamar tidur cenderung memiliki harga lebih tinggi.
@@ -94,18 +93,18 @@ Untuk menyederhanakan model dan fokus pada fitur numerik utama dalam proyek regr
 * `country`: Dihapus karena hanya memiliki satu nilai unik ('USA'), sehingga tidak memberikan variasi informasi yang relevan untuk model. Ini adalah praktik yang baik untuk menghilangkan fitur yang tidak memiliki variansi.
 
 ### Penghapusan Outlier
-Outlier dapat sangat memengaruhi kinerja model Regresi Linier dan bahkan Random Forest (meskipun lebih robust). Untuk mengatasinya, digunakan metode Interquartile Range (IQR) pada fitur-fitur numerik kunci yang rentan terhadap outlier dan memiliki dampak signifikan pada harga. Fitur-fitur ini adalah: `price`, `sqft_living`, `sqft_lot`, `bedrooms`,`bathroom`,`sqft_abov`,`sqft_basemen`
+Outlier dapat sangat memengaruhi kinerja model Regresi Linier. Untuk mengatasinya, digunakan metode Interquartile Range (IQR) pada fitur-fitur numerik kunci yang rentan terhadap outlier dan memiliki dampak signifikan pada harga. Fitur-fitur ini adalah: `price`, `sqft_living`, `sqft_lot`, `bedrooms`,`bathroom`,`sqft_abov`,`sqft_basemen`
 Baris yang memiliki nilai di luar batas Q1 - 1.5 * IQR atau Q3 + 1.5 * IQR akan dihapus dari dataset. Langkah ini bertujuan untuk mengurangi bias model akibat nilai ekstrem dan meningkatkan robustnya.
 
 ### Pembagian Data
 
 Dataset yang sudah bersih (setelah penghapusan outlier) dan variabel target yang sudah ditransformasi dibagi menjadi:
 - Training Set (80%): Digunakan untuk melatih model regresi.
-- Test Set (20%): Digunakan untuk mengevaluasi performa model pada data yang belum pernah dilihat model sebelumnya. Pembagian dilakukan menggunakan train_test_split dari scikit-learn dengan random_state=42 untuk memastikan hasil yang konsisten dan dapat direproduksi.
+- Test Set (20%): Digunakan untuk mengevaluasi performa model pada data yang belum pernah dilihat model sebelumnya. Pembagian dilakukan menggunakan `train_test_split` dari scikit-learn dengan random_state=42 untuk memastikan hasil yang konsisten dan dapat direproduksi.
 
 ### Scaling Fitur
 
-Fitur-fitur numerik pada training set dan test set diskalakan menggunakan StandardScaler. Scaling ini mentransformasi data sehingga memiliki rata-rata nol dan standar deviasi satu. Langkah ini sangat penting untuk model Regresi Linier karena memastikan semua fitur memiliki kontribusi yang setara tanpa didominasi oleh fitur dengan rentang nilai yang lebih besar, dan membantu dalam konvergensi algoritma. Untuk model Random Forest, scaling tidak wajib namun tidak akan merugikan.
+Fitur-fitur numerik pada training set dan test set diskalakan menggunakan StandardScaler. Scaling ini mentransformasi data sehingga memiliki rata-rata nol dan standar deviasi satu. Langkah ini sangat penting untuk model Regresi Linier karena memastikan semua fitur memiliki kontribusi yang setara tanpa didominasi oleh fitur dengan rentang nilai yang lebih besar, dan membantu dalam konvergensi algoritma.
 
 ## Modeling
 Regresi Linier adalah algoritma machine learning yang paling dasar dan sering digunakan untuk tugas regresi. Model ini mengasumsikan hubungan linier antara fitur independen (X) dan variabel target dependen (y).
@@ -128,7 +127,7 @@ Regresi Linier adalah algoritma machine learning yang paling dasar dan sering di
 
 ## Evaluation
 
-Performa kedua model (Regresi Linier dan Random Forest) dievaluasi pada test set menggunakan metrik-metrik regresi standar, setelah melakukan *inverse transformation* (`np.expm1()`) pada prediksi untuk mengembalikannya ke skala harga asli.
+Performa model Regresi Linier dievaluasi pada *test set* menggunakan metrik-metrik regresi standar, setelah melakukan *inverse transformation* (`np.expm1()`) pada prediksi untuk mengembalikannya ke skala harga asli.
 
 ### Metrik Evaluasi
 Metrik evaluasi yang digunakan adalah:
